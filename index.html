@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Быки и коровы</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="window">
+        <h2>Быки и коровы</h2>
+        <p id="instructions">Загадайте четырехзначное число, где все цифры различны. <br> Попытайтесь угадать.</p>
+        <input type="number" id="guessInput" placeholder="Ваше предположение" min="1000" max="9999" required>
+        <button onclick="checkGuess()">Угадать</button>
+        <button onclick="newNumber()">Другое число</button>
+        <div id="result"></div>
+        <h2>История запросов:</h2>
+        <ul id="historyList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -83,3 +83,15 @@ function newNumber() {
     document.getElementById('result').innerHTML = '';
     document.getElementById('historyList').innerHTML = '';
 }
+
+// Открытие модального окна с правилами
+function openRulesModal() {
+    var modal = document.getElementById("rulesModal");
+    modal.style.display = "block";
+}
+
+// Закрытие модального окна с правилами
+function closeRulesModal() {
+    var modal = document.getElementById("rulesModal");
+    modal.style.display = "none";
+}

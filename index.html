@@ -9,13 +9,27 @@
 <body>
     <div class="window">
         <h2>Быки и коровы</h2>
-        <p id="instructions">Загадайте четырехзначное число, где все цифры различны. <br> Попытайтесь угадать.</p>
+        <p id="instructions">Попытайтесь угадать четырехзначное число, где все цифры различны. <br> </p>
         <input type="number" id="guessInput" placeholder="Ваше предположение" min="1000" max="9999" required>
         <button onclick="checkGuess()">Угадать</button>
         <button onclick="newNumber()">Другое число</button>
+        <button id="rulesBtn" onclick="openRulesModal()">Правила</button>
         <div id="result"></div>
         <h2>История запросов:</h2>
         <ul id="historyList"></ul>
+
+        <!-- Модальное окно с правилами -->
+    <div class="modal" id="rulesModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRulesModal()">×</span>
+            <h2>Правила игры "Быки и коровы"</h2>
+            <p>Я загадываю четырехзначное число, где все цифры различны. Ваша задача — угадать это число.</p>
+            <p>Каждый ход — это предположение четырехзначного числа. После хода я сообщаю:</p>
+            <ul>
+                <li><strong>Бык</strong> — если цифра в вашем числе совпадает с цифрой в загаданном числе и стоит на той же позиции.</li>
+                <li><strong>Корова</strong> — если цифра в вашем числе совпадает с цифрой в загаданном числе, но стоит на другой позиции.</li>
+            </ul>
+        </div>
     </div>
 
     <script src="script.js"></script>

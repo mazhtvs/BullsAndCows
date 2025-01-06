@@ -11,11 +11,12 @@
 <body>
     <div class="window">
         <h2>Быки и коровы</h2>
-        <p id="instructions">Попытайтесь угадать четырехзначное число, где все цифры различны. <br> </p>
+        <p id="instructions">Попытайтесь угадать четырехзначное число, где все цифры различны.</p>
         <input type="number" id="guessInput" placeholder="Ваше предположение" min="1000" max="9999" required>
         <button onclick="checkGuess()">Угадать</button>
         <button onclick="newNumber()">Другое число</button>
         <button id="rulesBtn" onclick="openRulesModal()">Правила</button>
+        <button onclick="sendResultToTelegram()">Отправить результат</button>
         <div id="result"></div>
         <h2>История запросов:</h2>
         <ul id="historyList"></ul>
@@ -34,27 +35,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Инициализация Telegram Web App
-        Telegram.WebApp.ready();
-
-        // Получение информации о пользователе
-        const user = Telegram.WebApp.initDataUnsafe?.user;
-        if (user) {
-            const instructions = document.getElementById('instructions');
-            instructions.innerHTML += `<br>Добро пожаловать, ${user.first_name}!`;
-        }
-
-        // Настройка цвета фона и автоматическое разворачивание
-        Telegram.WebApp.setBackgroundColor("#FFFFFF");
-        Telegram.WebApp.expand();
-
-        // Пример использования callback data
-        function sendGameResult(result) {
-            Telegram.WebApp.sendData(result); // Отправка результата в контекст чата
-        }
-    </script>
 
     <script src="script.js"></script>
 </body>

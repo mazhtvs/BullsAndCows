@@ -40,6 +40,10 @@ button:hover {
     background-color: #b18b69;
 }
 
+button:active {
+    background-color: #8a6b4f; /* При нажатии кнопка сразу возвращается к исходному цвету */
+}
+
 #result {
     margin-bottom: 30px;
     font-weight: bold;

@@ -5,30 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Быки и коровы</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Подключение Telegram Web App SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="window">
         <h2>Быки и коровы</h2>
-        <p id="instructions">Попытайтесь угадать четырехзначное число, где все цифры различны. <br> </p>
+        <p id="instructions">Попытайтесь угадать четырехзначное число, где все цифры различны.</p>
         <input type="number" id="guessInput" placeholder="Ваше предположение" min="1000" max="9999" required>
         <button onclick="checkGuess()">Угадать</button>
         <button onclick="newNumber()">Другое число</button>
         <button id="rulesBtn" onclick="openRulesModal()">Правила</button>
+        <button onclick="sendResultToTelegram()">Отправить результат</button>
         <div id="result"></div>
         <h2>История запросов:</h2>
         <ul id="historyList"></ul>
 
         <!-- Модальное окно с правилами -->
-    <div class="modal" id="rulesModal">
-        <div class="modal-content">
-            <span class="close" onclick="closeRulesModal()">×</span>
-            <h2>Правила игры "Быки и коровы"</h2>
-            <p>Я загадываю четырехзначное число, где все цифры различны. Ваша задача — угадать это число.</p>
-            <p>Каждый ход — это предположение четырехзначного числа. После хода я сообщаю:</p>
-            <ul>
-                <li><strong>Бык</strong> — если цифра в вашем числе совпадает с цифрой в загаданном числе и стоит на той же позиции.</li>
-                <li><strong>Корова</strong> — если цифра в вашем числе совпадает с цифрой в загаданном числе, но стоит на другой позиции.</li>
-            </ul>
+        <div class="modal" id="rulesModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeRulesModal()">×</span>
+                <h2>Правила игры "Быки и коровы"</h2>
+                <p>Я загадываю четырехзначное число, где все цифры различны. Ваша задача — угадать это число.</p>
+                <p>Каждый ход — это предположение четырехзначного числа. После хода я сообщаю:</p>
+                <ul>
+                    <li><strong>Бык</strong> — если цифра в вашем числе совпадает с цифрой в загаданном числе и стоит на той же позиции.</li>
+                    <li><strong>Корова</strong> — если цифра в вашем числе совпадает с цифрой в загаданном числе, но стоит на другой позиции.</li>
+                </ul>
+            </div>
         </div>
     </div>
 

@@ -1,12 +1,17 @@
-// Генерация случайного четырехзначного числа
+// Генерация случайного числа
 function generateSecretNumber() {
-    let digits = Array.from({ length: 10 }, (_, i) => i);
+    let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     let secretNumber = [];
 
-    for (let i = 0; i < 4; i++) {
-        const index = Math.floor(Math.random() * digits.length);
-        secretNumber.push(digits[index]);
-        digits.splice(index, 1);
+    let firstDigitIndex = Math.floor(Math.random() * (digits.length - 1));
+    let firstDigit = digits[firstDigitIndex];
+    secretNumber.push(firstDigit);
+    digits.splice(firstDigitIndex, 1);
+
+    for (let i = 0; i < 3; i++) {
+        let digit = digits[Math.floor(Math.random() * digits.length)];
+        secretNumber.push(digit);
+        digits.splice(digits.indexOf(digit), 1);
     }
 
     return secretNumber.join('');
@@ -15,6 +20,20 @@ function generateSecretNumber() {
 // Хранение загаданного числа
 let secretNumber = generateSecretNumber();
 console.log(`Загаданное число: ${secretNumber}`);
+
+// Инициализация Telegram Web App
+if (typeof Telegram !== "undefined" && Telegram.WebApp) {
+    Telegram.WebApp.ready();
+
+    const user = Telegram.WebApp.initDataUnsafe?.user;
+    if (user) {
+        const instructions = document.getElementById('instructions');
+        instructions.innerHTML += `<br>Добро пожаловать, ${user.first_name}!`;
+    }
+
+    Telegram.WebApp.setBackgroundColor("#FFFFFF");
+    Telegram.WebApp.expand();
+}
 
 // Проверка предположения
 function checkGuess() {
@@ -57,6 +76,12 @@ function checkGuess() {
 
     if (bulls === 4) {
         alert(`Поздравляю! Вы угадали число: ${secretNumber}.`);
+
+        // Отправка результата в Telegram
+        if (Telegram.WebApp) {
+            Telegram.WebApp.sendData(`Игрок угадал число: ${secretNumber}!`);
+        }
+
         location.reload(); // Перезагружаем страницу для новой игры
     } else {
         resultDiv.style.color = 'red'; // Красный текст при неудачной попытке
@@ -67,14 +92,6 @@ function checkGuess() {
     guessInput.focus(); // Возвращаемся к полю ввода
 }
 
-// Обработка нажатия Enter
-document.getElementById('guessInput').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        checkGuess();
-    }
-});
-
 // Генерация нового числа
 function newNumber() {
     secretNumber = generateSecretNumber();
@@ -82,6 +99,16 @@ function newNumber() {
     alert('Загаданное число сменено. Попробуйте снова!');
     document.getElementById('result').innerHTML = '';
     document.getElementById('historyList').innerHTML = '';
+}
+
+// Отправка результата в Telegram
+function sendResultToTelegram() {
+    if (Telegram.WebApp) {
+        Telegram.WebApp.sendData("Результат игры: загаданное число было " + secretNumber);
+        alert("Результат отправлен в Telegram.");
+    } else {
+        alert("Telegram Web App SDK недоступен.");
+    }
 }
 
 // Открытие модального окна с правилами
@@ -95,3 +122,11 @@ function closeRulesModal() {
     var modal = document.getElementById("rulesModal");
     modal.style.display = "none";
 }
+
+// Обработка нажатия Enter
+document.getElementById('guessInput').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        checkGuess();
+    }
+});
